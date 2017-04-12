@@ -28,13 +28,10 @@ class Solution:
     def findBottomLeftValue(self, root):
         if(root is None):
             return None
-        return self.DFS(root)[1]
-    def DFS(self, root):
-        if(root is None):
-            return (-1,0)
-        lis = [self.DFS(root.left),self.DFS(root.right),(0, root.val)]
-        (x,y) = max(lis,key=lambda item:item[0])
-        return (x+1,y)
+        queue = [root]
+        for node in queue:
+            queue += filter(None, (node.right,node.left))
+        return node.val
 
 if __name__ == '__main__':
     unittest.main()
